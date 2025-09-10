@@ -19,6 +19,6 @@ public class ProductReq {
     private Float price_eur;
 
     @NotNull(message = "Product availability must be specified")
-    private Boolean isAvailable;
+    private Boolean is_available;
 
 }

@@ -17,12 +17,12 @@ public class ProductControllerImpl implements ProductController {
     private final ProductService productService;
 
     @Override
-    public ResponseEntity<ProductResp> getProductByCode(String code) {
+    public ResponseEntity<Object> getProductByCode(String code) {
         return productService.getProductByCode(code);
     }
 
     @Override
-    public ResponseEntity<ProductResp> getProductById(Long id) {
+    public ResponseEntity<Object> getProductById(Long id) {
         return productService.getProductById(id);
     }
 
@@ -32,7 +32,7 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public ResponseEntity<ProductResp> createProduct(ProductReq req) {
+    public ResponseEntity<Object> createProduct(ProductReq req) {
         return productService.createProduct(req);
     }
 

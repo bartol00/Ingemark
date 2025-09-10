@@ -27,18 +27,21 @@ public class ProductServiceImpl implements ProductService {
     private final WebClient webClient = WebClient.create();
 
     @Override
-    public ResponseEntity<ProductResp> getProductByCode(String code) {
+    public ResponseEntity<Object> getProductByCode(String code) {
         ProductEntity productEntity = productDao.findByCode(code);
         if (productEntity != null) {
             return ResponseEntity.ok(mapper.toProductResp(productEntity));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The product with this code could not be found!");
     }
 
     @Override
-    public ResponseEntity<ProductResp> getProductById(Long id) {
+    public ResponseEntity<Object> getProductById(Long id) {
         Optional<ProductEntity> productEntity = productDao.findById(id);
-        return productEntity.map(entity -> ResponseEntity.ok(mapper.toProductResp(entity))).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+        if (productEntity.isPresent()) {
+            return ResponseEntity.ok(productEntity.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The product with this ID could not be found!");
     }
 
     @Override
@@ -49,21 +52,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<ProductResp> createProduct(ProductReq req) {
+    public ResponseEntity<Object> createProduct(ProductReq req) {
         if (productDao.existsByCode(req.getCode())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Product with this unique code already exists!");
+        }
+        Float price_usd = getEurToUsd(req.getPrice_eur());
+        if (price_usd == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not get current EUR to USD conversion rate!");
         }
         ProductEntity productEntity = mapper.toProductEntity(req);
-        float price_usd = getEurToUsd(productEntity.getPrice_eur());
         productEntity.setPrice_usd(price_usd);
         productEntity = productDao.save(productEntity);
         return ResponseEntity.ok(mapper.toProductResp(productEntity));
     }
 
-    private float getEurToUsd(float eur) {
+    private Float getEurToUsd(float eur) {
         try {
             JsonNode body = webClient.get()
-                    .uri("https://api.hnb.hr/tecajn-eur/v3?valuta=USD&datum-primjene=2025-9-10")
+                    .uri("https://api.hnb.hr/tecajn-eur/v3?valuta=USD")
                     .retrieve()
                     .bodyToMono(JsonNode.class)
                     .block();
@@ -72,10 +78,10 @@ public class ProductServiceImpl implements ProductService {
                 String srednjiTecajStr = body.get(0).get("srednji_tecaj").asText();
                 return Float.parseFloat(srednjiTecajStr.replace(",", ".")) * eur;
             } else {
-                return 0.0f;
+                return null;
             }
         } catch (Exception e) {
-            return 0.0f;
+            return null;
         }
     }
 }

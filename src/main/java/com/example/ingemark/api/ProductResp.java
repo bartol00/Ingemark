@@ -8,6 +8,6 @@ public class ProductResp {
     private Long id;
     private String code, name;
     private Float price_eur, price_usd;
-    private Boolean isAvailable;
+    private Boolean is_available;
 
 }

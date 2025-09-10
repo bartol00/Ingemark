@@ -32,7 +32,7 @@ public class ProductEntity {
     private Float price_usd;
 
     @Column(name = "PRODUCT_IS_AVAILABLE", nullable = false)
-    private Boolean isAvailable;
+    private Boolean is_available;
 
     @Override
     public final boolean equals(Object o) {

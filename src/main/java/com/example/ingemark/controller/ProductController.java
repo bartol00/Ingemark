@@ -16,11 +16,11 @@ public interface ProductController {
 
     @Operation(summary = "Get product by code", description = "Fetch product details by their unique 10-character codes")
     @GetMapping("/get/code/{code}")
-    ResponseEntity<ProductResp> getProductByCode(@PathVariable String code);
+    ResponseEntity<Object> getProductByCode(@PathVariable String code);
 
     @Operation(summary = "Get product by ID", description = "Fetch product details by their unique numeric IDs")
     @GetMapping("/get/id/{id}")
-    ResponseEntity<ProductResp> getProductById(@PathVariable Long id);
+    ResponseEntity<Object> getProductById(@PathVariable Long id);
 
     @Operation(summary = "Get product list", description = "Fetch a paginated list of all products, sorted by their numeric IDs (ascending)")
     @GetMapping("/get/list")
@@ -28,6 +28,6 @@ public interface ProductController {
 
     @Operation(summary = "Create a new product", description = "Create a new product with a name, price (in EUR), availability status and unique 10-character code")
     @PostMapping("/create")
-    ResponseEntity<ProductResp> createProduct(@Valid @RequestBody ProductReq req);
+    ResponseEntity<Object> createProduct(@Valid @RequestBody ProductReq req);
 
 }

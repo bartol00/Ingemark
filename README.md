@@ -115,7 +115,7 @@ Odgovor (200 OK):
 ```
 
 Aplikacija se lokalno pokreće na portu 8080.  
-Za lakšu vizualizaciju i pokretanje HTTP endpointova, u aplikaciju je također uključen springdoc-openapi-starter-webmvc-ui dependency koji putem alata Swaggera UI prikazuje generirane endpointove i nudi mogućnost njihova pokretanja u pregledniku.  
+Za lakšu vizualizaciju i pokretanje HTTP endpointova, u aplikaciju je također uključen springdoc-openapi-starter-webmvc-ui dependency koji putem alata Swagger UI prikazuje generirane endpointove i nudi mogućnost njihova pokretanja u pregledniku.  
 Swagger prikaz moguće je otvoriti odlaskom na sljedeću poveznicu nakon lokalnog pokretanja aplikacije:  
 http://localhost:8080/swagger-ui/index.html#/
 
