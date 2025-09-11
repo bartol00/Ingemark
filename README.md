@@ -71,7 +71,7 @@ Odgovor (200 OK):
 
 Dohvat gotove liste proizvoda, uzlazno sortirane po numeričkom identifikatoru.  
 HTTP metoda: GET  
-Path varijable: N/A
+Path varijable: N/A  
 Query parametri: page(int, stranica liste, default=0), size(int, broj elemenata po stranici, default=20)  
 Mogući statusni kodovi:  
 - 200 OK - Uspješno dohvaćena lista proizvoda
@@ -95,8 +95,8 @@ Odgovor (200 OK):
 
 Dodavanje novog proizvoda u bazu podataka.  
 HTTP metoda: POST  
-Path varijable: N/A
-Query parametri: N/A 
+Path varijable: N/A  
+Query parametri: N/A  
 Mogući statusni kodovi:  
 - 200 OK - Uspješno dodan novi proizvod
 - 409 Conflict - Već postoji proizvod s priloženim jedinstvenim kodom
