@@ -102,6 +102,16 @@ Mogući statusni kodovi:
 - 409 Conflict - Već postoji proizvod s priloženim jedinstvenim kodom
 - 500 Internal Server Error - Dogodila se pogreška na poslužitelju
 
+Zahtjev:
+```
+{
+  "code": "string",
+  "name": "string",
+  "price_eur": 0.1,
+  "is_available": true
+}
+```
+
 Odgovor (200 OK):  
 ```
 {
